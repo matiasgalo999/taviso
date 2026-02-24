@@ -1,32 +1,289 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taviso - Reminder App</title>
+    <title>Taviso | Simple. Inteligente. Personalizable.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f5f5f5;
-            color: #333;
-            text-align: center;
+        :root {
+            --primary: #6200ee;
+            --primary-light: #bb86fc;
+            --bg: #ffffff;
+            --text: #121212;
+            --muted: #666666;
+            --card-bg: #f8f9fa;
         }
-        h1 { color: #6200ee; }
-        p { max-width: 600px; line-height: 1.6; }
-        .footer { margin-top: 50px; font-size: 0.8em; color: #777; }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f172a;
+                --text: #f8fafc;
+                --muted: #94a3b8;
+                --card-bg: #1e293b;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 40px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -1px;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 0;
+            gap: 40px;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--muted);
+            margin-bottom: 30px;
+        }
+
+        .hero-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .features {
+            padding: 100px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            padding: 80px 40px;
+            border-radius: 40px;
+            text-align: center;
+            margin: 60px 0;
+            color: white;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background-color: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: opacity 0.3s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        footer {
+            padding: 60px 0;
+            border-top: 1px solid var(--card-bg);
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <h1>Taviso</h1>
-    <p>La aplicación de avisos locales diseñada para simplificar tu día. Gestiona tus recordatorios con facilidad, soporte multi-idioma y notificaciones inteligentes.</p>
-    <div class="footer">
-        © 2026 Taviso | <a href="https://matiasgalo999.github.io/taviso-privacy/">Política de Privacidad</a>
+
+    <div class="container">
+        <header>
+            <div class="logo">Taviso</div>
+            <div>
+                <a href="#features"
+                    style="text-decoration: none; color: var(--text); font-weight: 600;">Funcionalidades</a>
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Tus recordatorios,<br>siempre a tiempo.</h1>
+                <p class="hero-subtitle">La forma más sencilla y elegante de gestionar tus avisos diarios. Diseñada para
+                    ser rápida, visual y personalizada.</p>
+                <a href="#" class="btn" style="background-color: var(--primary); color: white;">Próximamente en Play
+                    Store</a>
+            </div>
+            <div class="hero-image">
+                <img src="./taviso_mockup.png" alt="Taviso App Mockup">
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="feature-card">
+                <span class="feature-icon">✅</span>
+                <h3 class="feature-title">Tareas con Check</h3>
+                <p class="feature-desc">Marca tus pendientes como listos directamente. Ideal para tareas repetitivas que
+                    requieren tu validación.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🌍</span>
+                <h3 class="feature-title">Multi-idioma</h3>
+                <p class="feature-desc">Totalmente traducida al Español, Inglés, Portugués y Francés desde el primer
+                    inicio.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📏</span>
+                <h3 class="feature-title">Accesibilidad</h3>
+                <p class="feature-desc">Ajusta el tamaño de la fuente para una lectura cómoda. Porque tu vista es lo
+                    primero.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🛡️</span>
+                <h3 class="feature-title">100% Privada</h3>
+                <p class="feature-desc">Tus datos y avisos se guardan solo en tu dispositivo. Sin registros ni nubes
+                    externas.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🎨</span>
+                <h3 class="feature-title">Temas Dinámicos</h3>
+                <p class="feature-desc">Soporte completo para Modo Oscuro y Claro, adaptándose automáticamente a tu
+                    sistema.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🔔</span>
+                <h3 class="feature-title">Notificaciones Plus</h3>
+                <p class="feature-desc">Acciones rápidas desde la notificación. Responde sin siquiera abrir la
+                    aplicación.</p>
+            </div>
+        </section>
+
+        <div class="cta-section">
+            <h2 class="cta-title">¿Listo para simplificar tu día?</h2>
+            <p style="margin-bottom: 30px;">Únete a los usuarios que ya organizan su vida con Taviso.</p>
+            <a href="mailto:agalo.labs@gmail.com" class="btn">Contactar Soporte</a>
+        </div>
+
+        <footer>
+            <p>© 2026 Taviso. Todos los derechos reservados.</p>
+            <div style="margin-top: 10px;">
+                <a href="https://matiasgalo999.github.io/taviso-privacy/">Política de Privacidad</a> |
+                <a href="./app-ads.txt">app-ads.txt</a>
+            </div>
+        </footer>
     </div>
+
 </body>
+
 </html>
